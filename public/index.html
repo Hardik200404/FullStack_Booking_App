@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Appointment</title>
+    <script>
+        window.onload=event=>{
+            fetch('http://localhost:4000/appointments',{
+            method: 'GET',
+            }).then(res=>{
+                return res.json()
+            }).then(data=>{
+                for(appointment of data){
+                    let user_details={}
+                    user_details.id=appointment.id
+                    user_details.username=appointment.username
+                    user_details.email=appointment.email
+                    user_details.phone=appointment.phone
+                    displayUserOnScreen(user_details)
+                }
+            }).catch(err=>{
+                console.log(err)
+            })
+        }
+    </script>
+</head>
+<body>
+    <h4>Book Appointment</h4>
+    <form id="form" onsubmit="handle_form(event)">
+        <input type="hidden" name="appoint_id">
+        <label for="username">Name:</label>
+        <input id="username" name="username" type="text" placeholder="Full Name">
+        <label for="email">Email:</label>
+        <input id="email" name="email" type="email" placeholder="Email">
+        <label for="phone">Phone:</label>
+        <input id="phone" name="phone" type="phone" placeholder="Phone Number">
+        <button type="submit">Submit</button>
+    </form>
+    <ul></ul>
+    <script src="script.js"></script>
+</body>
+</html>
